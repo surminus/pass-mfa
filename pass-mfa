@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+ORG=$1
+
+if [[ ! -a $(which pass) ]]; then
+  echo "Cannot find pass"
+  echo "Try: brew install pass"
+  exit 1
+fi
+
+if [[ ! -a $(which pass) ]]; then
+  echo "Cannot find pass"
+  echo "Try: brew install oath-toolkit"
+  exit 1
+fi
+
+if [[ $ORG == '' ]]; then
+  pass mfa/
+  exit 1
+fi
+
+CODE=$(pass mfa/$ORG)
+
+oathtool --totp -b $CODE
