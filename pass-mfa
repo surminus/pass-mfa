@@ -19,6 +19,6 @@ if [[ $ORG == '' ]]; then
   exit 1
 fi
 
-CODE=$(pass mfa/$ORG)
-
-oathtool --totp -b $CODE
+if CODE=$(pass mfa/$ORG |head -n1); then
+  oathtool --totp -b "${CODE}"
+fi
